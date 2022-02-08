@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-#ch@28x^i5=mxtle@jr3r*%*(3e8xsp87$phmx%13hi)k1gs-+'
+SECRET_KEY = 'django-insecure-i8m8!bs!#anx=mugq)ozv^(m2@%s$85qgha$-icgm02a+rm3$t'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'game.apps.GameConfig'
 ]
 
 MIDDLEWARE = [
@@ -73,6 +74,9 @@ WSGI_APPLICATION = 'GeoLama.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+# НАСТРОИТЬ НЕОБХОДИМУЮ БАЗУ ДАННЫХ
+# SQLITE ПО УМОЛЧАНИЮ
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -105,7 +109,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
 
