@@ -1,2 +1,6 @@
+# python virtual environmet directory
 venv/
+# PyCharm config directory
 .idea/
+# database chanches directory (VCS of DB)
+# migrations/
