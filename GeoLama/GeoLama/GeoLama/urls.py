@@ -23,6 +23,10 @@ urlpatterns = [
 ]
 
 urlpatterns += [
+    path('api/', include('authentication.urls', namespace='authentication')),
+]
+
+urlpatterns += [
      path('game/', include('game.urls')),
 ]
 
