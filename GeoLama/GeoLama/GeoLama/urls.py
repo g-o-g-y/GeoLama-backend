@@ -23,27 +23,28 @@ urlpatterns = [
 ]
 
 urlpatterns += [
-    path('api/', include('authentication.urls', namespace='authentication')),
+    path('api/user/', include('authentication.urls', namespace='authentication')),
+    path('api/game/', include('game.urls', namespace='game')),
 ]
 
-urlpatterns += [
-     path('game/', include('game.urls')),
-]
+# urlpatterns += [
+#      path('game/', include('game.urls')),
+# ]
 
 # Добавление URL соотношения, чтобы перенаправить запросы с корневого URL на URL приложения
 # permanent=True подключение возможности использования статических файлов
-urlpatterns += [
-    path('', RedirectView.as_view(url='/game/', permanent=True)),
-]
+# urlpatterns += [
+#     path('', RedirectView.as_view(url='/game/', permanent=True)),
+# ]
 
 # Используйте static() чтобы добавить соотношения для статических файлов
 # Только на период разработки
-from django.conf import settings
-from django.conf.urls.static import static
-
-urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-
-#Add Django site authentication urls (for login, logout, password management)
-urlpatterns += [
-    path('accounts/', include('django.contrib.auth.urls')),
-]
+# from django.conf import settings
+# from django.conf.urls.static import static
+#
+# urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+#
+# #Add Django site authentication urls (for login, logout, password management)
+# urlpatterns += [
+#     path('accounts/', include('django.contrib.auth.urls')),
+# ]

@@ -129,7 +129,7 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
-LOGIN_REDIRECT_URL = '/'
+# LOGIN_REDIRECT_URL = '/'
 
 # authorization model
 # Рассказать Django о созданной нами кастомной модели пользователя. Строка
@@ -144,4 +144,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'authentication.backends.JWTAuthentication',
     ),
+    'DEFAULT_PERMISSION_CLASSES': [
+        'authentication.backends.JWTPermission',
+    ]
 }

@@ -129,5 +129,4 @@ class User(AbstractBaseUser, PermissionsMixin):
 
         # Возможно, нужно отправлять токен в бинарном виде
         # return token.encode('utf-8')
-        print(token)
         return token
