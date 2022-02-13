@@ -2,9 +2,15 @@ import jwt
 
 from django.conf import settings
 
-from rest_framework import authentication, exceptions
+from rest_framework import authentication, exceptions, permissions
 
 from .models import User
+
+
+class JWTPermission(permissions.BasePermission):
+    def has_permission(self, request, view):
+        print(request.user.is_staff)
+        return request.user.is_staff
 
 
 class JWTAuthentication(authentication.BaseAuthentication):
@@ -49,10 +55,8 @@ class JWTAuthentication(authentication.BaseAuthentication):
         # Python3 (HINT: использовать PyJWT). Чтобы точно решить это, нам нужно
         # декодировать prefix и token. Это не самый чистый код, но это хорошее
         # решение, потому что возможна ошибка, не сделай мы этого.
-        print(auth_header)
         prefix = auth_header[0].decode('utf-8')
         token = auth_header[1].decode('utf-8')
-        print(prefix, token)
 
         if prefix.lower() != auth_header_prefix:
             # Префикс заголовка не тот, который мы ожидали - отказ.
@@ -84,3 +88,5 @@ class JWTAuthentication(authentication.BaseAuthentication):
             raise exceptions.AuthenticationFailed(msg)
 
         return (user, token)
+
+
