@@ -2,6 +2,15 @@ from rest_framework import serializers
 from django.contrib.auth import authenticate
 
 from .models import User
+import sys
+sys.path.append('..')
+from game.models import Rating
+
+
+class RatingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Rating
+        fields = ['username']
 
 
 class RegistrationSerializer(serializers.ModelSerializer):

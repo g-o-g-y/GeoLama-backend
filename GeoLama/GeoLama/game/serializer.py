@@ -1,7 +1,17 @@
 from rest_framework import serializers
 from django.contrib.auth import authenticate
 
-from .models import PanoCoordinates
+from .models import PanoCoordinates, Rating
+
+
+class getRatingSerializer(serializers.ModelSerializer):
+    """ Сериализация возврата рейтинга. """
+
+    class Meta:
+        model = Rating
+        # Перечислить все поля, которые могут быть включены в запрос
+        # или ответ, включая поля, явно указанные выше.
+        fields = ['username', 'points']
 
 
 class setCoordsSerializer(serializers.ModelSerializer):
@@ -17,7 +27,6 @@ class setCoordsSerializer(serializers.ModelSerializer):
         """
         Check that start is before finish.
         """
-        print(data)
         try:
             float(data['longitude'])
             float(data['latitude'])
