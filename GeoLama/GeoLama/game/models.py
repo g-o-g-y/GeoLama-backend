@@ -17,27 +17,26 @@ class PanoCoordinates(models.Model):
         }
 
 
-class Raining(models.Model):
-    """
-    A typical class defining a model, derived from the Model class.
-    """
+class Rating(models.Model):
+    """Class model containing user's score"""
 
     # Fields
-    user_id = models.IntegerField(null=False, primary_key=True)
-    user_points = models.IntegerField(default=0)
+    # user_id = models.IntegerField(primary_key=True)
+    username = models.CharField(null=False, unique=True, primary_key=True, max_length=255)
+    points = models.IntegerField(default=0)
     # Metadata
-    class Meta:
+    # class Meta:
     # сортировка
-        ordering = ["user_points"]
+    #     ordering = ["points"]
         # ordering = ["title", "-pubdate"]
     # Methods
 
-    def get_absolute_url(self):
-        """ Returns the url to access a particular instance of MyModelName."""
-        return reverse('users', args=[str(self.user_id)])
+    # def get_absolute_url(self):
+    #     """ Returns the url to access a particular instance of MyModelName."""
+    #     return reverse('users', args=[str(self.user_id)])
 
-    def __str__(self):
-        """
-        String for representing the MyModelName object (in Admin site etc.)
-        """
-        return self.user_name
+    # def __str__(self):
+    #     """
+    #     String for representing the MyModelName object (in Admin site etc.)
+    #     """
+    #     return self.user_name
