@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate
 from .models import PanoCoordinates, Rating
 
 
-class getRatingSerializer(serializers.ModelSerializer):
+class RatingSerializer(serializers.ModelSerializer):
     """ Сериализация возврата рейтинга. """
 
     class Meta:

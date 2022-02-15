@@ -3,6 +3,37 @@ import json
 from rest_framework.renderers import JSONRenderer
 
 
+class ResultJSONRenderer(JSONRenderer):
+    charset = 'utf-8'
+
+    def render(self, data, media_type=None, renderer_context=None):
+        # Если представление выдает ошибку (например, пользователь не может
+        # быть аутентифицирован), data будет содержать ключ error. Мы хотим,
+        # чтобы стандартный JSONRenderer обрабатывал такие ошибки, поэтому
+        # такой случай необходимо проверить.
+        errors = data.get('errors', None)
+        if errors is not None:
+            # Позволим стандартному JSONRenderer обрабатывать ошибку.
+            return super(ResultJSONRenderer, self).render(data)
+
+        rating = data.get('rating', None)
+        if rating is not None:
+            del data['rating']
+        else:
+            data = {
+                'errors': {
+                    "error": ["A user with this email and password was not found."]
+                }
+            }
+            return super(ResultJSONRenderer, self).render(data)
+
+        # Наконец, мы можем отобразить наши данные в пространстве имен 'user'.
+        return json.dumps({
+            'user': data,
+            'score': rating
+        })
+
+
 class RatingJSONRenderer(JSONRenderer):
     charset = 'utf-8'
 
