@@ -1,0 +1,2 @@
+web: gunicorn GeoLama.wsgi
+worker: python manage.py runserver
