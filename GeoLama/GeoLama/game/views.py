@@ -8,8 +8,10 @@ from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .renderers import PanoJSONRenderer, RatingJSONRenderer
-from .serializer import getCoordsSerializer, setCoordsSerializer, getRatingSerializer
+from .renderers import PanoJSONRenderer, RatingJSONRenderer, ResultJSONRenderer
+from .serializer import (
+    getCoordsSerializer, setCoordsSerializer, RatingSerializer
+)
 from .models import PanoCoordinates, Rating
 import sys
 sys.path.append('..')
@@ -18,11 +20,42 @@ from authentication.serializers import (
 )
 
 
+class setResultAPIView(APIView):
+    permission_classes = (IsAuthenticated,)
+    renderer_classes = (ResultJSONRenderer,)
+    serializer_class = UserSerializer
+    result_serializer_class = RatingSerializer
+
+    def put(self, request):
+        serializer = self.serializer_class(request.user)
+
+        result = request.data.get('result', None)
+        if result is None:
+            response = {
+                'status': 'Nothing to create'
+            }
+            return Response(response, status=status.HTTP_204_NO_CONTENT)
+
+        obj = Rating.objects.get(username=request.user.username)
+        print(obj)
+        obj.points += result
+        print(obj.points)
+        obj.save()
+        rating_serializer = self.result_serializer_class(obj)
+        rating = {
+            'rating': rating_serializer.data
+        }
+
+
+        data = {**serializer.data, **rating}
+        return Response(data, status=status.HTTP_201_CREATED)
+
+
 class getRatingAPIView(RetrieveUpdateAPIView):
     permission_classes = (IsAuthenticated,)
     renderer_classes = (RatingJSONRenderer,)
     serializer_class = UserSerializer
-    rating_serializer_class = getRatingSerializer
+    rating_serializer_class = RatingSerializer
 
     def retrieve(self, request, *args, **kwargs):
         # Здесь нечего валидировать или сохранять. Мы просто хотим, чтобы
