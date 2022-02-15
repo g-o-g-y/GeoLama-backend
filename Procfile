@@ -1,1 +1,1 @@
-web: gunicorn GeoLama.wsgi
+web: gunicorn GeoLama.GeoLama.GeoLama.wsgi
