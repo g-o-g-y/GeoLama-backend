@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'game.apps.GameConfig',
     'authentication.apps.AuthenticationConfig',
+    'rest_framework_swagger',
 ]
 
 MIDDLEWARE = [
@@ -148,3 +149,5 @@ REST_FRAMEWORK = {
         'authentication.backends.JWTPermission',
     ]
 }
+
+DISABLE_COLLECTSTATIC=1
